@@ -88,4 +88,6 @@ def get_top_tracks():
     return jsonify(data)
 
 # Update redirect URI for Render deployment
-Fix syntax error on redirect update
+# Fix syntax error on redirect update
+Remove invalid syntax line
+
