@@ -91,3 +91,40 @@ def get_top_tracks():
 # Fix syntax error on redirect update
 # Actually removed broken line
 # Final cleanup — no more bad lines
+
+@app.route("/create-playlist", methods=["POST"])
+def create_playlist():
+    access_token = session.get("access_token")
+    if not access_token:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    data = request.get_json()
+    playlist_name = data.get("name")
+    playlist_description = data.get("description", "")
+    public = data.get("public", False)
+
+    # Get user ID
+    headers = {"Authorization": f"Bearer {access_token}"}
+    user_res = requests.get("https://api.spotify.com/v1/me", headers=headers)
+    if user_res.status_code != 200:
+        return jsonify({"error": "Failed to get user profile"}), user_res.status_code
+
+    user_id = user_res.json()["id"]
+
+    # Create playlist
+    payload = {
+        "name": playlist_name,
+        "description": playlist_description,
+        "public": public
+    }
+    playlist_url = f"https://api.spotify.com/v1/users/{user_id}/playlists"
+    res = requests.post(playlist_url, headers=headers, json=payload)
+
+    if res.status_code != 201:
+        return jsonify({"error": "Failed to create playlist"}), res.status_code
+
+    playlist = res.json()
+    return jsonify({
+        "playlist_id": playlist["id"],
+        "playlist_url": playlist["external_urls"]["spotify"]
+    })
