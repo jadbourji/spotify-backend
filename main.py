@@ -87,4 +87,5 @@ def get_top_tracks():
     data = r.json()
     return jsonify(data)
 
-Update redirect URI for Render deployment
+# Update redirect URI for Render deployment
+Fix syntax error on redirect update
