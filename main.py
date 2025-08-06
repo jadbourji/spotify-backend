@@ -6,7 +6,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "default_secret")
 
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI = "https://spotify-backend.onrender.com/callback"
+REDIRECT_URI = "https://spotify-backend-apam.onrender.com/callback"
 SCOPE = "user-read-private user-top-read user-read-recently-played playlist-read-private playlist-modify-private playlist-modify-public"
 
 @app.route("/")
