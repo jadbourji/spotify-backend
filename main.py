@@ -89,5 +89,4 @@ def get_top_tracks():
 
 # Update redirect URI for Render deployment
 # Fix syntax error on redirect update
-Remove invalid syntax line
-
+Actually remove broken line
